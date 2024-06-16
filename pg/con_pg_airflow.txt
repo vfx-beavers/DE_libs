@@ -1,0 +1,8 @@
+Создайте Connection в Airflow для подключения к PostgreSQL со следующими параметрами:
+
+    наименование соединения: pg_connection,
+    host: localhost,
+    port: 5432,
+    login: jovyan,
+    password: jovyan,
+    schema: de

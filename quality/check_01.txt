@@ -1,0 +1,77 @@
+Показатели:
+
+1. Процент заполненности данных в наборе. Поможет отслеживать отсутствие пропущенных значений.
+2. Оценочная точность значений в данных. Анализ ошибок, неточностей и выбросов в данных.
+3. Количество уникальных записей в различных наборах данных. Позволяет выявлять дубликаты и повторы.
+4. Согласованность данных между различными источниками и таблицами. Проверка соответствия данных  стандартам и форматам.
+5. Контроль за актуальностью и свежестью данных, включая даты источников и частоту обновлений.
+6. Оценка качества и достоверности источников данных.
+
+
+Запросы контроля качества для дашбордов:
+
+-- сколько всего строк
+SELECT COUNT(*) FROM stg_parking;
+
+-- какие колонки и типы данных есть
+SELECT column_name, data_type 
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'stg_parking';
+
+-- количество null для каждой колонки
+SELECT COUNT(*) - COUNT(id) id,
+ COUNT(*) - COUNT("name") "name",
+ COUNT(*) - COUNT(global_id) global_id,
+ COUNT(*) - COUNT(photo) photo,
+ COUNT(*) - COUNT(adm_area) adm_area,
+ COUNT(*) - COUNT(district) district,
+ COUNT(*) - COUNT(department_affl) department_affl,
+ COUNT(*) - COUNT(address) address,
+ COUNT(*) - COUNT(capacity) capacity,
+ COUNT(*) - COUNT(obj_operator_name) obj_operator_name,
+ COUNT(*) - COUNT(obj_operator_phone) obj_operator_phone,
+ COUNT(*) - COUNT(lng_wgs84) lng_wgs84,
+ COUNT(*) - COUNT(lat_wgs84) lat_wgs84
+FROM public.stg_parking;
+
+-- проверка дубликатов global_id
+SELECT COUNT(global_id) - COUNT(DISTINCT(global_id)) AS global_id_duplicate_rows
+FROM public.stg_parking;
+
+-- проверка дубликатов id
+SELECT COUNT(id) - COUNT(DISTINCT(id)) AS id_duplicate_rows
+FROM public.stg_parking;
+
+Возможные проверки на этапе импорта в py скриптах:
+
+# визуализация пустых строк df
+df.isna().sum()
+
+# проверка типов данных df
+df.dtypes
+
+# Общее количество строк df
+df.count()[0]
+
+# Удаление лишних и дублирующих столбцов (частичная нормализация)
+df.drop(['Unnamed: 15','geoData','geodata_center'], axis=1, inplace=True)
+
+# Переименование и чистка полей для согласованности с другими таблицами
+df['adm_area'].replace({'Северо-Западный административный округ': 'СЗАО'}, inplace=True)
+df['district'] = df['district'].str.replace(r'\s*\район\s*', '', regex=True)
+
+# Приведение колонок к целевым типам данных перед экспортом в бд
+df['global_id'] = df['global_id'].astype('str')
+
+# Удаление части строк с пустыми значениями
+df.drop(df.index[range(125, 146)], axis=0, inplace=True)
+
+# Переименование столбцов в латиницу и кириллицы из заголовков
+df.columns.values[1] = "district"
+
+# Удаление спец. символов и пробелов из полей
+df['population'] = df['population'].str.replace('↗','', regex=False)
+df['population'] = df['population'].str.replace(r'\s*', '', regex=True)
+
+# Приведение показателей в соответствие с табличными значениями истоника
+df['living_pp_sqm'] = df['living_pp_sqm'].div(10).round(2)

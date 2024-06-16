@@ -1,0 +1,8 @@
+подключение в Airflow с типом S3 с названием conn_s3 со следующими параметрами:
+
+aws_access_key_id = s3_hide,
+aws_secret_access_key = s3_hide.
+
+Этих полей нет в предлагаемом стандартном перечне полей при создании подключения, их необходимо указывать в поле extra в формате:
+
+{"aws_access_key_id":"s3_hide", "aws_secret_access_key": "s3_hide"}

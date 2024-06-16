@@ -1,0 +1,76 @@
+группа сенсоров в airflow
+
+# импорт необходимых библиотек
+from datetime import datetime, timedelta
+from airflow.models import DAG
+# импорт необходимых библиотек для работы сенсора
+from airflow.sensors.filesystem import FileSensor
+# импорт необходимых библиотек для работы Python-оператора
+from airflow.operators.python import PythonOperator, BranchPythonOperator
+from airflow.operators.empty import EmptyOperator
+from airflow.utils.task_group import TaskGroup
+
+default_args = {
+    "start_date": datetime(2020, 1, 1),
+    "owner": "airflow"
+}
+
+
+with DAG(
+    dag_id="Sprin4_Task1",
+    schedule_interval="@daily",
+    default_args=default_args,
+    catchup=False
+    ) as dag:
+ 
+ t0 = EmptyOperator(task_id='start')
+
+ with TaskGroup(group_id="group1") as fg1:
+        f1 = FileSensor(task_id='waiting_for_file_customer_research', 
+        fs_conn_id = 'fs_local', 
+        filepath=str(datetime.now().date())+ '_' + '_customer_research.csv', 
+        poke_interval = 60 )
+        f2 = FileSensor(task_id='waiting_for_file_user_order_log', 
+        fs_conn_id = 'fs_local', 
+        filepath=str(datetime.now().date())+ '_' + '_user_order_log.csv', 
+        poke_interval = 60 )
+        f3 = FileSensor(task_id='waiting_for_file_user_activity_log', 
+        fs_conn_id = 'fs_local', 
+        filepath=str(datetime.now().date())+ '_' + '_user_activity_log.csv', 
+        poke_interval = 60 )
+
+        f1 >> f2 >> f3
+
+ t3 = EmptyOperator(task_id='end')
+
+t0 >> fg1 >> t3
+
+-------------
+
+один файл
+
+from airflow.models import DAG
+from airflow.sensors.filesystem import FileSensor
+from datetime import datetime
+
+default_args = {
+    "start_date": datetime(2020, 1, 1),
+    "owner": "airflow"
+}
+
+with DAG(
+    dag_id="Sprin4_Task1",
+    schedule_interval="@daily",
+    default_args=default_args,
+    catchup=False
+    ) as dag:
+ 
+    # Вам необходимо заполнить только эту секцию с сенсором
+    waiting_for_file = FileSensor(
+        task_id='check_if_file_present',  # имя задачи
+        fs_conn_id='fs_local', # имя соединения
+        filepath='/data/test.txt',  # путь к файлу
+        poke_interval= 60
+    )
+
+    waiting_for_file

@@ -1,0 +1,167 @@
+#Airflow Connection
+#----
+#Airflow через Docker. Перейдите в раздел Admin → Connection и заведите HTTP-соединение с #названием create_files_api, указав host d5dg1j9kt695d30blp03.apigw.yandexcloud.net
+
+#check connection
+from airflow.hooks.base_hook import BaseHook
+c = BaseHook.get_connection(*ваш код здесь*)
+print(c.host) 
+
+#----
+
+#SimpleHttpOperator передать данные
+
+from airflow import DAG
+from airflow.providers.http.operators.http import SimpleHttpOperator
+import datetime
+
+dag = DAG(
+	dag_id='ref_http_operator',
+	schedule_interval='0 0 * * *',
+	start_date=datetime.datetime(2021, 1, 1),
+	catchup=False,
+	dagrun_timeout=datetime.timedelta(minutes=60),
+	tags=['example', 'example2'],
+	params={"example_key": "example_value"},
+)
+business_dt = {'dt':'2022-05-06'}
+
+task = SimpleHttpOperator(
+        task_id='ref_files_request',
+        http_conn_id='create_files_api',
+        method='POST',
+        data=business_dt,
+        dag=dag)
+
+#----
+#PythonOperator передать данные. dag
+
+from airflow import DAG
+from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.hooks.base import BaseHook
+from airflow.operators.python import PythonOperator
+
+import datetime
+import requests
+import json
+
+dag = DAG(
+	dag_id='ref_http_operator',
+	schedule_interval='0 0 * * *',
+	start_date=datetime.datetime(2021, 1, 1),
+	catchup=False,
+	dagrun_timeout=datetime.timedelta(minutes=60),
+	tags=['example', 'example2'],
+	params={"example_key": "example_value"},
+)
+business_dt = {'dt':'2022-05-06'}
+
+#запрос выгрузки файлов;
+#в итоге вы получите строковый идентификатор задачи выгрузки - task_id;
+#через некоторое время по другому пути сформируется ссылка на выгруженные файлы.
+nickname = 'cgbeavers2'
+cohort = '_'
+api_token = '5f55e6c0-e9e5-4a9c-b313-63c01fc31460'
+
+headers = {
+    "X-API-KEY": api_token,
+    "X-Nickname": nickname,
+    "X-Cohort": cohort
+}
+
+def create_files_request(headers):
+    api_conn = BaseHook.get_connection('create_files_api')
+    api_endpoint = api_conn.host
+    method_url = '/generate_report'
+    r = requests.post('https://'+api_endpoint + method_url, headers=headers)
+    response_dict = json.loads(r.content)
+    print(f"task_id is {response_dict['task_id']}")
+    return response_dict['task_id']
+
+task = PythonOperator(task_id='create_files_request',
+                                        python_callable=create_files_request,
+                                        op_kwargs={'headers': headers},
+                                        dag=dag)
+
+
+task
+
+#---------
+bash operator. dag
+
+from airflow import DAG
+from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.hooks.base import BaseHook
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash_operator import BashOperator
+
+import datetime
+import requests
+
+dag = DAG(
+    dag_id='ref_bash_sleep_operator',
+    schedule_interval='0 0 * * *',
+    start_date=datetime.datetime(2021, 1, 1),
+    catchup=False,
+    dagrun_timeout=datetime.timedelta(minutes=60),
+    tags=['example', 'example2'],
+    params={"example_key": "example_value"},
+)
+business_dt = {'dt':'2022-05-06'}
+
+
+task = BashOperator(task_id='sleep_bash_sleep_operator',
+                    bash_command='sleep 10',
+                    dag=dag)
+
+task
+
+#-----
+# PythonOperator с ожиданием генерации
+
+from airflow import DAG
+from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.hooks.base import BaseHook
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash_operator import BashOperator
+import datetime
+import requests
+import time
+
+dag = DAG(
+    dag_id='ref_python_sleep_operator',
+    schedule_interval='0 0 * * *',
+    start_date=datetime.datetime(2021, 1, 1),
+    catchup=False,
+    dagrun_timeout=datetime.timedelta(minutes=60),
+    tags=['example', 'example2'],
+    params={"example_key": "example_value"},
+)
+business_dt = {'dt':'2022-05-06'}
+
+# lambda func variant
+task = PythonOperator(
+    task_id='10s_python_sleep_operator',
+    python_callable=time.sleep(10),
+    dag=dag)
+task
+
+#--------------
+
+результат с помощью метода get_report:
+
+{
+
+"task_id": "MjAyMi0wNC0xM1QxMjoxMDo1NAl6YXZhcm92",
+
+"status": "SUCCESS",
+
+"data": {
+
+"report_id": "TWpBeU1pMHdOQzB4TTFReE1qb3hNRG8xTkFsNllYWmhjbTky"
+
+}
+
+} 
+
+Поле report_id— это идентификатор папки в облачном хранилище Amazon S3
