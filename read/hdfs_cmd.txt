@@ -1,0 +1,94 @@
+hdfs dfs -help
+
+ls - Просмотр директории
+hdfs dfs -ls /to/path/dir 
+
+text - Чтение файла. декодирует его в обычный текст
+hdfs dfs -text /to/path/file.log 
+cat - Чтение файла. не декодирует файл
+hdfs dfs -cat /to/path/file.log 
+
+put – Upload a File to HDFS from Local. Аналог copyFromLocal
+hadoop fs -put /local-file-path /hdfs-file-path
+get — копирует файл из HDFS в локальную файловую систему. Аналог copyToLocal
+hadoop fs -get /local-file-path /hdfs-file-path
+
+rm - Удаление файлов. без корзины -rm -skipTrash
+hdfs dfs -rm hdfs://localhost/to/path/file.log
+
+mkdir – Make Directory
+hadoop fs -mkdir /directory-name
+
+rmr – Remove Directory Recursively
+hadoop fs -rmr /directory-name
+
+rmdir – Delete a Directory if empty
+hadoop fs -rmdir /directory-name
+
+du – File Occupied in Disk
+hadoop fs -du  /hdfs-file-path
+
+dus – Directory/file of the total size
+hadoop fs -dus  /hdfs-directory 
+
+getmerge – Merge Multiple Files in an HDFS
+hadoop fs -getmerge [-nl] /source /local-destination
+
+count – a number of directories, a number of files, and file size
+hadoop fs -count /hdfs-file-path
+
+mv – Moves Files from Source to Destination
+hadoop fs -mv /local-file-path /hdfs-file-path
+
+moveFromLocal – Move file / Folder from Local disk to HDFS
+hadoop fs -moveFromLocal /local-file-path /hdfs-file-path
+
+moveToLocal – Move a File to HDFS from Local
+hadoop fs -moveToLocal /hdfs-file-path /local-file-path
+
+Cp – Copy Files from Source to Destination
+hadoop fs -cp /local-file-path /hdfs-file-path
+
+setrep – Changes the Replication Factor of a File
+hadoop fs -setrep /number /file-name
+
+tail – Displays Last Kilobyte of the File
+hadoop fs -tail /hdfs-file-path
+
+touch – Create and Modify Timestamps of a File
+hadoop fs -touch /hdfs-file-path
+
+appendToFile – Appends the Content to the File
+hadoop fs -appendToFile /hdfs-file-path
+
+copyToLocal – Copy Files from HDFS to Local file System
+hadoop fs -copyToLocal /hdfs-file-path /local-file-path
+
+copyFromLocal – Copy File from Local file System
+hadoop fs -copyToLocal /hdfs-file-path /local-file-path
+
+chmod – Change the Permissions of a File
+hadoop fs -chmod [-R] hdfs-file-path
+
+df – Displays free Space
+hadoop fs -df /user/hadoop/dir1
+
+head – Displays first Kilobyte of the File
+hadoop fs -head /hdfs-file-path
+
+Stat – File/Directory Print Statistics
+ hadoop fs -stat /format
+
+
+chown — сменить владельца
+hdfs dfs -chown -R  user1 hdfs://localhost/to/path/file.log
+-R изменения вносятся рекурсивно, то есть во все подкаталоги файла
+rwx — все права для всех групп пользователей;
+rw- — права на чтение и запись;
+--- — нет прав.
+
+-rw-rw-r-- = 664. Все пользователи имеют право чтения, владелец и группа могут редактировать.
+-rw-rw-rw- = 666. Все пользователи могут читать и редактировать.
+-rwx------ = 700. Владелец может читать, записывать и запускать файл на выполнение, если файл — это код. Никто, кроме него, не имеет права выполнять действия.
+
+
