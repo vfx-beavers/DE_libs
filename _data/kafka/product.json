@@ -164,7 +164,7 @@
       "store_id":"store_001"
    },
    {
-      "product_id":12353,
+      "product_id":"12353",
       "name":"Игровая мышь VWX",
       "description":"Игровая мышь с RGB подсветкой и высокой чувствительностью.",
       "price":{
