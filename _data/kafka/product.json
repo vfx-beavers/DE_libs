@@ -31,14 +31,14 @@
       ],
       "specifications":{
          "weight":"120g",
+         "dimensions": "42mm x 22mm x 11mm",
          "battery_life":"15 hours",
-         "charging_time":"1 hour",
-         "bluetooth_version":"5.0"
+         "water_resistance": "IP68"
       },
       "created_at":"2023-10-02T12:00:00Z",
       "updated_at":"2023-10-10T15:30:00Z",
       "index":"products",
-      "store_id":"store_001"
+      "store_id":"store_002"
    },
    {
       "product_id":"12350",
@@ -72,14 +72,14 @@
       ],
       "specifications":{
          "weight":"30g",
-         "battery_life":"7 days",
-         "water_resistance":"IP67",
-         "display_type":"OLED"
+         "dimensions": "32mm x 28mm x 11mm",
+         "battery_life":"19 hours",
+         "water_resistance": "IP22"
       },
       "created_at":"2023-10-03T12:00:00Z",
       "updated_at":"2023-10-10T15:30:00Z",
       "index":"products",
-      "store_id":"store_001"
+      "store_id":"store_003"
    },
    {
       "product_id":"12351",
@@ -113,8 +113,8 @@
       ],
       "specifications":{
          "weight":"500g",
-         "battery_life":"12 hours",
-         "bluetooth_range":"10m",
+         "dimensions": "332mm x 258mm x 110mm",
+         "battery_life":"10 hours",
          "water_resistance":"IPX7"
       },
       "created_at":"2023-10-04T12:00:00Z",
@@ -154,14 +154,14 @@
       ],
       "specifications":{
          "weight":"200g",
-         "battery_life":"~4 weeks",
-         "screen_size":"6 inches",
-         "storage_capacity":"~8GB"
+         "dimensions": "32mm x 28mm x 10mm",
+         "battery_life":"100 hours",
+         "water_resistance":"IP10"
       },
       "created_at":"2023-10-05T12:00:00Z",
       "updated_at":null,
       "index":null,
-      "store_id":"store_001"
+      "store_id":"store_002"
    },
    {
       "product_id":"12353",
@@ -195,9 +195,9 @@
       ],
       "specifications":{
          "weight":"100g",
-         "dimensions":"130mm x 70mm x 40mm",
-         "dpi_settings":"800-16000",
-         "connection_type":"USB"
+         "dimensions":"120mm x 720mm x 402mm",
+         "battery_life":"30 hours",
+         "water_resistance":"IP22"
       },
       "created_at":"2023-10-06T12:00:00Z",
       "updated_at":null,
@@ -237,8 +237,8 @@
       "specifications":{
          "weight":"800g",
          "dimensions":"450mm x 150mm x 40mm",
-         "switch_type":"механические",
-         "connection_type":"USB"
+         "battery_life":"50 hours",
+         "water_resistance":"IP44"
       },
       "created_at":"2023-10-07T12:00:00Z",
       "updated_at":null,
@@ -278,13 +278,13 @@
       "specifications":{
          "weight":"200g",
          "dimensions":"130mm x 80mm x 20mm",
-         "storage_capacity":"1TB",
-         "connection_type":"USB 3.0"
+         "battery_life":"64 hours",
+         "water_resistance":"IP28"
       },
       "created_at":"2023-10-08T12:00:00Z",
       "updated_at":null,
       "index":null,
-      "store_id":"store_001"
+      "store_id":"store_003"
    },
    {
       "product_id":"12356",
@@ -319,8 +319,8 @@
       "specifications":{
          "weight":"180g",
          "dimensions":"155mm x 75mm x 8mm",
-         "battery_capacity":"4000mAh",
-         "camera_resolution":"48MP"
+         "battery_life":"120 hours",
+         "water_resistance":"IP10"
       },
       "created_at":"2023-10-09T12:00:00Z",
       "updated_at":null,
@@ -360,8 +360,8 @@
       "specifications":{
          "weight":"400g",
          "dimensions":"240mm x 170mm x 8mm",
-         "battery_capacity":"6000mAh",
-         "storage_capacity":"64GB"
+         "battery_life":"5 hours",
+         "water_resistance":"IP68"
       },
       "created_at":"2023-10-10T12:00:00Z",
       "updated_at":null,
