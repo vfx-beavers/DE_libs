@@ -159,8 +159,8 @@
          "water_resistance":"IP10"
       },
       "created_at":"2023-10-05T12:00:00Z",
-      "updated_at":null,
-      "index":null,
+      "updated_at":"2023-10-05T13:00:00Z",
+      "index":"products",
       "store_id":"store_002"
    },
    {
@@ -200,8 +200,8 @@
          "water_resistance":"IP22"
       },
       "created_at":"2023-10-06T12:00:00Z",
-      "updated_at":null,
-      "index":null,
+      "updated_at""2023-10-06T19:00:00Z",
+      "index":"products",
       "store_id":"store_001"
    },
    {
@@ -241,8 +241,8 @@
          "water_resistance":"IP44"
       },
       "created_at":"2023-10-07T12:00:00Z",
-      "updated_at":null,
-      "index":null,
+      "updated_at":"2023-10-07T18:00:00Z",
+      "index":"products",
       "store_id":"store_001"
    },
    {
@@ -282,8 +282,8 @@
          "water_resistance":"IP28"
       },
       "created_at":"2023-10-08T12:00:00Z",
-      "updated_at":null,
-      "index":null,
+      "updated_at":"2023-10-08T16:00:00Z",
+      "index":"products",
       "store_id":"store_003"
    },
    {
@@ -323,8 +323,8 @@
          "water_resistance":"IP10"
       },
       "created_at":"2023-10-09T12:00:00Z",
-      "updated_at":null,
-      "index":null,
+      "updated_at":"2023-10-09T14:00:00Z",
+      "index":"products",
       "store_id":"store_001"
    },
    {
@@ -364,8 +364,8 @@
          "water_resistance":"IP68"
       },
       "created_at":"2023-10-10T12:00:00Z",
-      "updated_at":null,
-      "index":null,
+      "updated_at":"2023-12-10T12:00:00Z",
+      "index":"products",
       "store_id":"store_001"
    }
 ]
