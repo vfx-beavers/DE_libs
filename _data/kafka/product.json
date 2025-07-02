@@ -10,7 +10,7 @@
       "category":"Аудио",
       "brand":"JKL",
       "stock":{
-         "available":200,
+         "available":"200",
          "reserved":30
       },
       "sku":"JKL-12349",
