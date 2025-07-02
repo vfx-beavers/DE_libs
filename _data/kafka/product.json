@@ -297,8 +297,8 @@
       "category":"Мобильные телефоны",
       "brand":"EFG",
       "stock":{
-         "available":"100",
-         "reserved":"20"
+         "available":100,
+         "reserved":20
       },
       "sku":"EFG-12356",
       "tags":[
@@ -338,8 +338,8 @@
       "category":"Планшеты",
       "brand":"GHI",
       "stock":{
-         "available":"80",
-         "reserved":"5"
+         "available":80,
+         "reserved":5
       },
       "sku":"GHI-12357",
       "tags":[
